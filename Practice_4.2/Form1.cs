@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -9,15 +10,23 @@ namespace Practice_4._2
     {
         private readonly Graphics g;
         private List<Point> points = new List<Point>();
+        private Point dragPoint;
+        private bool dragPointFlag;
+        private int pointSpeed = 1;
         private int pointRadius = 1;
         private Pen curvePen = new Pen(Color.Black, 1);
         private int buttonFlag = 0;
         //buttonflag = 1 если нажата кнопка добавления точки
+        //2 если closed curve
+        //3 если poligone
+        //4 если fill curve
+        //5 если motion
 
         public Form1()
         {
             InitializeComponent();
             g = Graphics.FromHwnd(this.Handle);
+            KeyPreview = true;
         }
 
         private void SettingsButton_Click(object sender, System.EventArgs e)
@@ -30,17 +39,6 @@ namespace Practice_4._2
                     pointRadius = changeForm.GetSelectedPointRadius();
                     curvePen.Width = changeForm.GetSelectedCurveThickness();
                 }
-            }
-        }
-
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-            switch (buttonFlag)
-            {
-                case 1 :
-                    points.Add(new Point(e.X, e.Y));
-                    g.FillEllipse(new SolidBrush(Color.Black), new Rectangle(e.X-pointRadius, e.Y-pointRadius, pointRadius*2, pointRadius*2));
-                    break;
             }
         }
 
@@ -60,26 +58,167 @@ namespace Practice_4._2
 
         private void ClearButton_Click(object sender, System.EventArgs e)
         {
+            points = new List<Point>();
             Clear();
-        }
-
-        void Clear()
-        {
-            g.Clear(Color.White);
         }
 
         private void DrawClosedCurveButton_Click(object sender, System.EventArgs e)
         {
-            Clear();
-            PaintPoint();
-            g.DrawClosedCurve(curvePen, points.ToArray());
+            if (points.Count > 2)
+            {
+                DisablePointButton();
+                Clear();
+                PaintPoint();
+                g.DrawClosedCurve(curvePen, points.ToArray());
+                buttonFlag = 2;
+            }
         }
 
         private void DrawPolygoneButton_Click(object sender, System.EventArgs e)
         {
-            Clear();
-            PaintPoint();
-            g.DrawPolygon(curvePen, points.ToArray());
+            if (points.Count > 2)
+            {
+                DisablePointButton();
+                Clear();
+                PaintPoint();
+                g.DrawPolygon(curvePen, points.ToArray());
+                buttonFlag = 3;
+            }
+        }
+
+        private void FillCurveButton_Click(object sender, System.EventArgs e)
+        {
+            if(points.Count > 2)
+            {
+                DisablePointButton();
+                Clear();
+                PaintPoint();
+                g.FillClosedCurve(new SolidBrush(Color.Black), points.ToArray());
+                buttonFlag = 4;
+            }
+        }
+
+        private void MotionButton_Click(object sender, System.EventArgs e)
+        {
+            buttonFlag = 5;
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            foreach (Point point in points)
+            {
+                if (e.X - pointRadius < point.X && 
+                    point.X < e.X + pointRadius &&
+                    e.Y - pointRadius < point.Y &&
+                    point.Y < e.Y + pointRadius)
+                {
+                    dragPointFlag = true;
+                    dragPoint = point;
+                    if(buttonFlag == 1)
+                    {
+                        DisablePointButton();
+                    }
+                    break;
+                }
+            }
+            if(buttonFlag == 1)
+            {
+                points.Add(new Point(e.X, e.Y));
+                g.FillEllipse(new SolidBrush(Color.Black), new Rectangle(e.X - pointRadius, e.Y - pointRadius, pointRadius * 2, pointRadius * 2));
+            }
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragPointFlag)
+            {
+                for(int i = 0; i< points.Count; i++)
+                {
+                    if(points[i] == dragPoint)
+                    {
+                        points[i] = new Point(e.X, e.Y);
+                        break;
+                    }
+                }
+                dragPoint = new Point(e.X, e.Y);
+                Clear();
+                PaintPoint();
+            }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    Clear();
+                    break;
+                case Keys.Space:
+                    MotionButton_Click(sender, e);
+                    break;
+                case Keys.W:
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        if (points[i].Y - pointSpeed >= 0)
+                        {
+                            points[i] = new Point(points[i].X, points[i].Y - pointSpeed);
+                            Clear();
+                            PaintPoint();
+                        }
+                    }
+                    break;
+                case Keys.A:
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        if (points[i].X - pointSpeed >= 0)
+                        {
+                            points[i] = new Point(points[i].X - pointSpeed, points[i].Y);
+                            Clear();
+                            PaintPoint();
+                        }
+                    }
+                    break;
+                case Keys.S:
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        if (points[i].Y + pointSpeed <= this.Height-40)
+                        {
+                            points[i] = new Point(points[i].X, points[i].Y + pointSpeed);
+                            Clear();
+                            PaintPoint();
+                        }
+                    }
+                    break;
+                case Keys.D:
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        if (points[i].X + pointSpeed <= this.Width-15)
+                        {
+                            points[i] = new Point(points[i].X + pointSpeed, points[i].Y);
+                            Clear();
+                            PaintPoint();
+                        }
+                    }
+                    break;
+                case Keys.Oemplus:
+                    pointSpeed++;
+                    break;
+                case Keys.OemMinus:
+                    if (pointSpeed > 1)
+                        pointSpeed--;
+                    break;
+            }
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragPointFlag = false;
+        }
+
+        private void DisablePointButton()
+        {
+            buttonFlag = 0;
+            pointButton.BackColor = settingsButton.BackColor;
         }
 
         private void PaintPoint()
@@ -89,13 +228,24 @@ namespace Practice_4._2
                 g.FillEllipse(new SolidBrush(Color.Black),
                     new Rectangle(point.X - pointRadius, point.Y - pointRadius, pointRadius * 2, pointRadius * 2));
             }
+            switch (buttonFlag)
+            {
+                case 2:
+                    g.DrawClosedCurve(curvePen, points.ToArray());
+                    break;
+                case 3:
+                    g.DrawPolygon(curvePen, points.ToArray());
+                    break;
+                case 4:
+                    g.FillClosedCurve(new SolidBrush(Color.Black), points.ToArray());
+                    break;
+
+            }
         }
 
-        private void FillCurveButton_Click(object sender, System.EventArgs e)
+        void Clear()
         {
-            Clear();
-            PaintPoint();
-            g.FillClosedCurve(new SolidBrush(Color.Black), points.ToArray());
+            g.Clear(Color.White);
         }
     }
 }
