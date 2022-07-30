@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfWriter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Writer>
+    <Name>Пушкин</Name>
+    <Year>1850</Year>
+    <Country>Россия</Country>
+    <CountBook>2000</CountBook>
+    <MostFamousBook>Сказка о чаре Салтане</MostFamousBook>
+  </Writer>
+  <Writer>
+    <Name>Толстой</Name>
+    <Year>1830</Year>
+    <Country>Россия</Country>
+    <CountBook>1600</CountBook>
+    <MostFamousBook>Война и мир</MostFamousBook>
+  </Writer>
+  <Writer>
+    <Name>Достоевский</Name>
+    <Year>1840</Year>
+    <Country>Россия</Country>
+    <CountBook>1200</CountBook>
+  </Writer>
+</ArrayOfWriter>
