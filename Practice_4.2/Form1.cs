@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Practice_4._2
@@ -50,7 +49,7 @@ namespace Practice_4._2
 
         private void PointButton_Click(object sender, System.EventArgs e)
         {
-            if(buttonFlag != 1)
+            if (buttonFlag != 1)
             {
                 buttonFlag = 1;
                 pointButton.BackColor = Color.Blue;
@@ -94,7 +93,7 @@ namespace Practice_4._2
 
         private void FillCurveButton_Click(object sender, System.EventArgs e)
         {
-            if(points.Count > 2)
+            if (points.Count > 2)
             {
                 DisablePointButton();
                 Clear();
@@ -106,7 +105,7 @@ namespace Practice_4._2
 
         private void BeziersButton_Click(object sender, EventArgs e)
         {
-            if (points.Count == 4 || (points.Count-4)%3==0)
+            if (points.Count == 4 || (points.Count - 4) % 3 == 0)
             {
                 DisablePointButton();
                 Clear();
@@ -118,7 +117,7 @@ namespace Practice_4._2
 
         private void MotionButton_Click(object sender, System.EventArgs e)
         {
-            if(buttonFlag != 6)
+            if (buttonFlag != 6)
             {
                 buttonFlag = 6;
                 motionButton.BackColor = Color.Blue;
@@ -142,7 +141,7 @@ namespace Practice_4._2
                 {
                     randomY = 0 - randomY;
                 }
-                if (points[i].Y + randomY >= this.Height - 40 && randomY<0)
+                if (points[i].Y + randomY >= this.Height - 40 && randomY < 0)
                 {
                     randomY = 0 - randomY;
                 }
@@ -164,21 +163,21 @@ namespace Practice_4._2
         {
             foreach (Point point in points)
             {
-                if (e.X - pointRadius < point.X && 
+                if (e.X - pointRadius < point.X &&
                     point.X < e.X + pointRadius &&
                     e.Y - pointRadius < point.Y &&
                     point.Y < e.Y + pointRadius)
                 {
                     dragPointFlag = true;
                     dragPoint = point;
-                    if(buttonFlag == 1)
+                    if (buttonFlag == 1)
                     {
                         DisablePointButton();
                     }
                     break;
                 }
             }
-            if(buttonFlag == 1)
+            if (buttonFlag == 1)
             {
                 points.Add(new Point(e.X, e.Y));
                 g.FillEllipse(new SolidBrush(Color.Black), new Rectangle(e.X - pointRadius, e.Y - pointRadius, pointRadius * 2, pointRadius * 2));
@@ -189,9 +188,9 @@ namespace Practice_4._2
         {
             if (dragPointFlag)
             {
-                for(int i = 0; i< points.Count; i++)
+                for (int i = 0; i < points.Count; i++)
                 {
-                    if(points[i] == dragPoint)
+                    if (points[i] == dragPoint)
                     {
                         points[i] = new Point(e.X, e.Y);
                         break;
@@ -238,7 +237,7 @@ namespace Practice_4._2
                 case Keys.S:
                     for (int i = 0; i < points.Count; i++)
                     {
-                        if (points[i].Y + pointSpeed <= this.Height-40)
+                        if (points[i].Y + pointSpeed <= this.Height - 40)
                         {
                             points[i] = new Point(points[i].X, points[i].Y + pointSpeed);
                             Clear();
@@ -249,7 +248,7 @@ namespace Practice_4._2
                 case Keys.D:
                     for (int i = 0; i < points.Count; i++)
                     {
-                        if (points[i].X + pointSpeed <= this.Width-15)
+                        if (points[i].X + pointSpeed <= this.Width - 15)
                         {
                             points[i] = new Point(points[i].X + pointSpeed, points[i].Y);
                             Clear();
