@@ -1,8 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Xml.Serialization;
 
 namespace Practice_5._2
 {
+    [Serializable]
     public class City
     {
 
@@ -31,6 +34,7 @@ namespace Practice_5._2
         [DisplayName("Количество улиц")]
         public int CountStreet { get; set; }
 
+        [XmlIgnore]
         [DisplayName("Фотография")]
         public Image Image { get; set; }
 

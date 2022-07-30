@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Xml.Serialization;
 
 namespace Practice_5._2
 {
@@ -53,6 +56,58 @@ namespace Practice_5._2
             {
                 Series series = chart.Series.Add(city.Name);
                 series.Points.Add(city.Population);
+            }
+        }
+
+        private void bindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "bin files (*.bin)|*.bin|xml files (*.xml)|*.xml";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
+                switch (saveFileDialog.FilterIndex)
+                {
+                    case 1:
+                        
+                        BinaryFormatter binaryFormatter = new BinaryFormatter();
+                        binaryFormatter.Serialize(fileStream, bindingSource.List);
+                        break;
+                    case 2:
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(BindingList<City>));
+                        xmlSerializer.Serialize(fileStream, bindingSource.List);
+                        break;
+                }
+                fileStream.Close();
+            }
+        }
+
+        private void OpenFileButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "bin files (*.bin)|*.bin|xml files (*.xml)|*.xml";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open);
+                switch (openFileDialog.FilterIndex)
+                {
+                    case 1:
+                        BinaryFormatter binaryFormatter = new BinaryFormatter();
+                        bindingSource.DataSource = binaryFormatter.Deserialize(fileStream);
+                        break;
+                    case 2:
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(BindingList<City>));
+                        bindingSource.DataSource = xmlSerializer.Deserialize(fileStream);
+                        break;
+                }
+                fileStream.Close();
             }
         }
     }

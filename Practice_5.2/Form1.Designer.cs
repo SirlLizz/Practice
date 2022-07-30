@@ -51,6 +51,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,7 +90,8 @@
             this.populationDataGridViewTextBoxColumn,
             this.countryDataGridViewTextBoxColumn,
             this.cityAgeDataGridViewTextBoxColumn,
-            this.countStreetDataGridViewTextBoxColumn});
+            this.countStreetDataGridViewTextBoxColumn,
+            this.Image});
             this.dataGrid.DataSource = this.bindingSource;
             this.dataGrid.Location = new System.Drawing.Point(12, 28);
             this.dataGrid.Name = "dataGrid";
@@ -240,6 +242,7 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // toolStripButton1
             // 
@@ -249,6 +252,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // pictureBox
             // 
@@ -256,9 +260,16 @@
             this.pictureBox.Location = new System.Drawing.Point(426, 28);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(264, 141);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
             this.pictureBox.DoubleClick += new System.EventHandler(this.PictureBox_DoubleClick);
+            // 
+            // Image
+            // 
+            this.Image.DataPropertyName = "Image";
+            this.Image.HeaderText = "Фотография";
+            this.Image.Name = "Image";
             // 
             // bindingSource
             // 
@@ -346,6 +357,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn countryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn cityAgeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn countStreetDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewImageColumn Image;
     }
 }
 

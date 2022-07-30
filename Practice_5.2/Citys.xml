@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ArrayOfCity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <City>
+    <Name>Самара</Name>
+    <Population>1600000</Population>
+    <Country>Россия</Country>
+    <CityAge>1000</CityAge>
+    <CountStreet>400</CountStreet>
+    <Image xsi:type="Bitmap">
+      <Palette />
+    </Image>
+  </City>
+  <City>
+    <Name>Сызрань</Name>
+    <Population>250000</Population>
+    <Country>Россия</Country>
+    <CityAge>1000</CityAge>
+    <CountStreet>200</CountStreet>
+    <Image xsi:type="Bitmap">
+      <Palette />
+    </Image>
+  </City>
+  <City>
+    <Name>Тольятти</Name>
+    <Population>600000</Population>
+    <Country>Россия</Country>
+    <CityAge>1000</CityAge>
+    <CountStreet>250</CountStreet>
+    <Image xsi:type="Bitmap">
+      <Palette />
+    </Image>
+  </City>
+</ArrayOfCity>
