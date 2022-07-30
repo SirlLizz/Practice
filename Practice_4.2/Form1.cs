@@ -13,6 +13,12 @@ namespace Practice_4._2
         private Point dragPoint;
         private bool dragPointFlag;
         private int pointSpeed = 1;
+        private readonly Timer moveTimer = new Timer
+        {
+            Interval = 30
+        };
+        private int randomX = new Random().Next(30);
+        private int randomY = new Random().Next(30);
         private int pointRadius = 1;
         private Pen curvePen = new Pen(Color.Black, 1);
         private int buttonFlag = 0;
@@ -98,9 +104,60 @@ namespace Practice_4._2
             }
         }
 
+        private void BeziersButton_Click(object sender, EventArgs e)
+        {
+            if (points.Count == 4 || (points.Count-4)%3==0)
+            {
+                DisablePointButton();
+                Clear();
+                PaintPoint();
+                g.DrawBeziers(curvePen, points.ToArray());
+                buttonFlag = 5;
+            }
+        }
+
         private void MotionButton_Click(object sender, System.EventArgs e)
         {
-            buttonFlag = 5;
+            if(buttonFlag != 6)
+            {
+                buttonFlag = 6;
+                motionButton.BackColor = Color.Blue;
+                moveTimer.Tick += new EventHandler(TimerTickHandler);
+                moveTimer.Start();
+            }
+            else
+            {
+                buttonFlag = -1;
+                moveTimer.Stop();
+                motionButton.BackColor = Color.White;
+            }
+        }
+
+        private void TimerTickHandler(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                if (points[i].Y - randomY <= 0)
+                {
+                    randomY = 0 - randomY;
+                }
+                if (points[i].Y + randomY >= this.Height - 40 && randomY<0)
+                {
+                    randomY = 0 - randomY;
+                }
+                if (points[i].X - randomX <= 0)
+                {
+                    randomX = 0 - randomX;
+                }
+                if (points[i].X + randomX >= this.Width - 15 && randomX < 0)
+                {
+                    randomX = 0 - randomX;
+                }
+                points[i] = new Point(points[i].X - randomX, points[i].Y - randomY);
+            }
+            Clear();
+            PaintPoint();
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -238,6 +295,9 @@ namespace Practice_4._2
                     break;
                 case 4:
                     g.FillClosedCurve(new SolidBrush(Color.Black), points.ToArray());
+                    break;
+                case 5:
+                    g.DrawBeziers(curvePen, points.ToArray());
                     break;
 
             }

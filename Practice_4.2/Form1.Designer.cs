@@ -36,6 +36,7 @@
             this.motionButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.beziersButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,7 +92,7 @@
             // 
             // motionButton
             // 
-            this.motionButton.Location = new System.Drawing.Point(6, 229);
+            this.motionButton.Location = new System.Drawing.Point(6, 271);
             this.motionButton.Name = "motionButton";
             this.motionButton.Size = new System.Drawing.Size(190, 36);
             this.motionButton.TabIndex = 3;
@@ -101,7 +102,7 @@
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(6, 271);
+            this.clearButton.Location = new System.Drawing.Point(6, 313);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(190, 36);
             this.clearButton.TabIndex = 4;
@@ -111,6 +112,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.beziersButton);
             this.groupBox1.Controls.Add(this.clearButton);
             this.groupBox1.Controls.Add(this.motionButton);
             this.groupBox1.Controls.Add(this.pointButton);
@@ -120,10 +122,20 @@
             this.groupBox1.Controls.Add(this.settingsButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(206, 317);
+            this.groupBox1.Size = new System.Drawing.Size(206, 360);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Drawing";
+            // 
+            // beziersButton
+            // 
+            this.beziersButton.Location = new System.Drawing.Point(6, 229);
+            this.beziersButton.Name = "beziersButton";
+            this.beziersButton.Size = new System.Drawing.Size(190, 36);
+            this.beziersButton.TabIndex = 2;
+            this.beziersButton.Text = "Beziers";
+            this.beziersButton.UseVisualStyleBackColor = true;
+            this.beziersButton.Click += new System.EventHandler(this.BeziersButton_Click);
             // 
             // Form1
             // 
@@ -154,6 +166,7 @@
         private System.Windows.Forms.Button motionButton;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button beziersButton;
     }
 }
 
