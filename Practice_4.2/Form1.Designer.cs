@@ -47,7 +47,7 @@
             this.pointButton.TabIndex = 0;
             this.pointButton.Text = "Point";
             this.pointButton.UseVisualStyleBackColor = true;
-            this.pointButton.Click += new System.EventHandler(this.pointButton_Click);
+            this.pointButton.Click += new System.EventHandler(this.PointButton_Click);
             // 
             // settingsButton
             // 
@@ -67,6 +67,7 @@
             this.drawClosedCurveButton.TabIndex = 2;
             this.drawClosedCurveButton.Text = "ClosedCurve";
             this.drawClosedCurveButton.UseVisualStyleBackColor = true;
+            this.drawClosedCurveButton.Click += new System.EventHandler(this.DrawClosedCurveButton_Click);
             // 
             // groupBox1
             // 
@@ -111,6 +112,7 @@
             this.fillCurveButton.TabIndex = 1;
             this.fillCurveButton.Text = "Fill Curve";
             this.fillCurveButton.UseVisualStyleBackColor = true;
+            this.fillCurveButton.Click += new System.EventHandler(this.FillCurveButton_Click);
             // 
             // drawPolygoneButton
             // 
@@ -120,6 +122,7 @@
             this.drawPolygoneButton.TabIndex = 0;
             this.drawPolygoneButton.Text = "Polygone";
             this.drawPolygoneButton.UseVisualStyleBackColor = true;
+            this.drawPolygoneButton.Click += new System.EventHandler(this.DrawPolygoneButton_Click);
             // 
             // Form1
             // 

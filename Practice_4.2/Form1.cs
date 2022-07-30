@@ -8,8 +8,9 @@ namespace Practice_4._2
     public partial class Form1 : Form
     {
         private readonly Graphics g;
+        private List<Point> points = new List<Point>();
         private int pointRadius = 1;
-        private Pen curvePen;
+        private Pen curvePen = new Pen(Color.Black, 1);
         private int buttonFlag = 0;
         //buttonflag = 1 если нажата кнопка добавления точки
 
@@ -17,19 +18,44 @@ namespace Practice_4._2
         {
             InitializeComponent();
             g = Graphics.FromHwnd(this.Handle);
-            Paint += Form1_Paint;
         }
 
-        void Form1_Paint(object sender, PaintEventArgs e)
+        private void SettingsButton_Click(object sender, System.EventArgs e)
         {
-            Pen greenPen = new Pen(Color.Green, 2f);
-            Point[] pm =
+            using (ChangeForm changeForm = new ChangeForm())
             {
-                new Point(0, 0),
-                new Point(100, 100),
-                new Point(0, 100),
-            };
-            g.DrawClosedCurve(greenPen, pm, 0f, FillMode.Winding);
+                changeForm.StartPosition = FormStartPosition.Manual;
+                if (changeForm.ShowDialog() == DialogResult.OK)
+                {
+                    pointRadius = changeForm.GetSelectedPointRadius();
+                    curvePen.Width = changeForm.GetSelectedCurveThickness();
+                }
+            }
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            switch (buttonFlag)
+            {
+                case 1 :
+                    points.Add(new Point(e.X, e.Y));
+                    g.FillEllipse(new SolidBrush(Color.Black), new Rectangle(e.X-pointRadius, e.Y-pointRadius, pointRadius*2, pointRadius*2));
+                    break;
+            }
+        }
+
+        private void PointButton_Click(object sender, System.EventArgs e)
+        {
+            if(buttonFlag != 1)
+            {
+                buttonFlag = 1;
+                pointButton.BackColor = Color.Blue;
+            }
+            else
+            {
+                buttonFlag = 0;
+                pointButton.BackColor = settingsButton.BackColor;
+            }
         }
 
         private void ClearButton_Click(object sender, System.EventArgs e)
@@ -42,41 +68,34 @@ namespace Practice_4._2
             g.Clear(Color.White);
         }
 
-        private void SettingsButton_Click(object sender, System.EventArgs e)
+        private void DrawClosedCurveButton_Click(object sender, System.EventArgs e)
         {
-            using (ChangeForm changeForm = new ChangeForm())
+            Clear();
+            PaintPoint();
+            g.DrawClosedCurve(curvePen, points.ToArray());
+        }
+
+        private void DrawPolygoneButton_Click(object sender, System.EventArgs e)
+        {
+            Clear();
+            PaintPoint();
+            g.DrawPolygon(curvePen, points.ToArray());
+        }
+
+        private void PaintPoint()
+        {
+            foreach (Point point in points)
             {
-                changeForm.StartPosition = FormStartPosition.Manual;
-                if (changeForm.ShowDialog() == DialogResult.OK)
-                {
-                    pointRadius = changeForm.GetSelectedPointRadius();
-                    curvePen = new Pen(Color.Blue, changeForm.GetSelectedCurveThickness());
-                }
+                g.FillEllipse(new SolidBrush(Color.Black),
+                    new Rectangle(point.X - pointRadius, point.Y - pointRadius, pointRadius * 2, pointRadius * 2));
             }
         }
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void FillCurveButton_Click(object sender, System.EventArgs e)
         {
-            switch (buttonFlag)
-            {
-                case 1 :
-                    g.FillEllipse(new SolidBrush(Color.Black), new Rectangle(e.X-pointRadius, e.Y-pointRadius, pointRadius*2, pointRadius*2));
-                    break;
-            }
-        }
-
-        private void pointButton_Click(object sender, System.EventArgs e)
-        {
-            if(buttonFlag != 1)
-            {
-                buttonFlag = 1;
-                pointButton.BackColor = Color.Blue;
-            }
-            else
-            {
-                buttonFlag = 0;
-                pointButton.BackColor = settingsButton.BackColor;
-            }
+            Clear();
+            PaintPoint();
+            g.FillClosedCurve(new SolidBrush(Color.Black), points.ToArray());
         }
     }
 }
