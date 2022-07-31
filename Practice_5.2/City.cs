@@ -12,7 +12,7 @@ namespace Practice_5._2
         [Browsable(true)]
         [Description("Название страны")]
         [DisplayName("Название")]
-        public string Name { get; set; } = "";
+        public string Name { get; set; } = string.Empty;
 
         [Browsable(true)]
         [Description("Количество человек, проживаюших в городе")]
@@ -22,7 +22,7 @@ namespace Practice_5._2
         [Browsable(true)]
         [Description("Название страны, в которой находится город")]
         [DisplayName("Страна")]
-        public string Country { get; set; }
+        public string Country { get; set; } = string.Empty ;
 
         [Browsable(true)]
         [Description("Указывает, сколкьо лет прошло с первого упоминания города")]

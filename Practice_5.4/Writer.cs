@@ -12,7 +12,7 @@ namespace Practice_5._4
         [Browsable(true)]
         [Description("Имя автора")]
         [DisplayName("ФИО")]
-        public string Name { get; set; } = "";
+        public string Name { get; set; } = string.Empty;
 
         [Browsable(true)]
         [Description("Год, в который родился писатель")]
@@ -22,7 +22,7 @@ namespace Practice_5._4
         [Browsable(true)]
         [Description("Название страны, в которой родился писатель")]
         [DisplayName("Страна")]
-        public string Country { get; set; }
+        public string Country { get; set; } = String.Empty;
 
         [Browsable(true)]
         [Description("Количество произведений, написанных писателем")]
@@ -32,7 +32,7 @@ namespace Practice_5._4
         [Browsable(true)]
         [Description("Самое известное произведение")]
         [DisplayName("Самое известное произведение")]
-        public String MostFamousBook { get; set; }
+        public String MostFamousBook { get; set; } = string.Empty;
 
         [XmlIgnore]
         [DisplayName("Фотография")]

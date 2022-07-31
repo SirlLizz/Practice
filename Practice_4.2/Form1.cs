@@ -63,6 +63,7 @@ namespace Practice_4._2
 
         private void ClearButton_Click(object sender, System.EventArgs e)
         {
+            moveTimer.Stop();
             points = new List<Point>();
             Clear();
         }
