@@ -1,0 +1,41 @@
+﻿@using Practice_7._2.Models;
+@model Animal;
+@{
+ Layout = null;
+}
+<div class="edit-block" style="background-color: deepskyblue; text-align: center;" >
+    <h4 style = "text-align: center;">
+        Животное
+    </h4>   
+    @using (Html.BeginForm("Create", "Home" ))
+    {
+        @if(!Model.Id.Equals(Guid.Empty))
+        {
+            <div class="dataBox">
+                <label>Id</label><br />
+                @Html.TextBoxFor(m => m.Id, new { @class = "text-box" })
+            </div>
+        }
+        <div class="dataBox">
+            <label>Название животного</label><br />
+            @Html.TextBoxFor(m => m.Name, new { @class = "text-box" })
+        </div>
+        <div class="dataBox">
+            <label>Ореол обитания</label><br />
+            @Html.DropDownListFor(m => m.Habitat ,new SelectList(new string[] { "США", "Австралия", "Россия", "Китай"}), "")
+        </div>
+        <div class="dataBox">
+            <label>Рацион питания</label><br />
+            @Html.TextBoxFor(m => m.Diet, new { @class = "text-box" })
+        </div>
+        <div class="dataBox">
+             <label>Популяция</label><br />
+             @Html.TextBoxFor(m => m.Population, "0", new { type = "number", @class ="text-box" })
+         </div>
+
+        <div class="dataBox">
+            <input type="submit" value="Сохранить" />
+        </div>
+     }
+    <a asp-action="Index">Назад</a>
+</div>

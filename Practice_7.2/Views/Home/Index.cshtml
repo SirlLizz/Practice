@@ -1,0 +1,38 @@
+﻿@using Practice_7._2.Models;
+@model IEnumerable<Animal>;
+@{
+ Layout = null;
+}
+<!DOCTYPE html>
+
+<div class="animals" style="background-color: deepskyblue"  >
+    <h2 style = "text-align: center;">
+        @ViewData["Title"]
+    </h2>
+    <div class="animal-list">
+        <table style = "text-align: center; margin: auto; border-radius: 5px; font-weight: bold; background-color: white;">
+            <tr>
+                <th>Id</th>
+                <th>Название: </th>
+                <th>Ореол: </th>
+                <th>Популяция: </th>
+                <th>Питается: </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Habitat</td>
+                <td>@item.Population</td>
+                <td>@item.Diet</td>
+                <td>@Html.ActionLink("Изменить", "Edit", item)</td>
+                <td>@Html.ActionLink("Удалить", "Delete", item)</td>
+            </tr>
+            }
+        </table>
+    </div>
+    <h2 style = "text-align: center;">
+            @Html.ActionLink("Добавить новое животное", "Create")
+    </h2>
+</div>
