@@ -27,7 +27,10 @@
                 <td>@item.Population</td>
                 <td>@item.Diet</td>
                 <td>@Html.ActionLink("Изменить", "Edit", item)</td>
-                <td>@Html.ActionLink("Удалить", "Delete", item)</td>
+                @using (Html.BeginForm("Delete", "Home", item))
+                {
+                    <td><input type="submit" value="Удалить" /></td>
+                }
             </tr>
             }
         </table>

@@ -49,14 +49,14 @@ namespace Practice_7._2.Controllers
                 return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Delete(Animal animal)
         {
             if (ModelState.IsValid)
             {
-                MemoryDb.Animals.Remove(animal);
+                MemoryDb.Animals.Remove(MemoryDb.Animals.Find(f => f.Id == animal.Id));
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
