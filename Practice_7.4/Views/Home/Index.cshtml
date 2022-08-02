@@ -1,8 +1,41 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Practice_7._4.Models;
+@model IEnumerable<Musician>;
+@{
+ Layout = null;
 }
+<!DOCTYPE html>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="musicians" style="background-color: chocolate"  >
+    <h2 style = "text-align: center;">
+        @ViewData["Title"]
+    </h2>
+    <div class="musician-list">
+        <table style = "text-align: center; margin: auto; border-radius: 5px; font-weight: bold; background-color: white;">
+            <tr>
+                <th>Id</th>
+                <th>ФИО: </th>
+                <th>Страна: </th>
+                <th>Год: </th>
+                <th>Самое известное произведение: </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Country</td>
+                <td>@item.Year</td>
+                <td>@item.MostFamousWork</td>
+                <td>@Html.ActionLink("Изменить", "Edit", item)</td>
+                @using (Html.BeginForm("Delete", "Home", item))
+                {
+                    <td><input type="submit" value="Удалить" /></td>
+                }
+            </tr>
+            }
+        </table>
+    </div>
+    <h2 style = "text-align: center;">
+            @Html.ActionLink("Добавить нового музыканта", "Create")
+    </h2>
 </div>

@@ -22,7 +22,7 @@ namespace Practice_5._2
         [Browsable(true)]
         [Description("Название страны, в которой находится город")]
         [DisplayName("Страна")]
-        public string Country { get; set; } = string.Empty ;
+        public string Country { get; set; } = string.Empty;
 
         [Browsable(true)]
         [Description("Указывает, сколкьо лет прошло с первого упоминания города")]

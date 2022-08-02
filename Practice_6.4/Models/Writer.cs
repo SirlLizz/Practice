@@ -22,7 +22,7 @@ namespace Practice_6._4.Models
         }
         public int Year
         {
-            get => year; 
+            get => year;
             set
             {
                 year = value;

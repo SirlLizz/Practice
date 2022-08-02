@@ -22,7 +22,7 @@ namespace Practice_6._2.Models
         }
         public int Population
         {
-            get => population; 
+            get => population;
             set
             {
                 population = value;

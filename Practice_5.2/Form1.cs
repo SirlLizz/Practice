@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Serialization;
@@ -75,7 +71,7 @@ namespace Practice_5._2
                 switch (saveFileDialog.FilterIndex)
                 {
                     case 1:
-                        
+
                         BinaryFormatter binaryFormatter = new BinaryFormatter();
                         binaryFormatter.Serialize(fileStream, bindingSource.List);
                         break;

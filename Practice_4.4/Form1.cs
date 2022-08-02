@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Practice_4._4
@@ -219,7 +214,7 @@ namespace Practice_4._4
                     MotionButton_Click(sender, e);
                     break;
                 case Keys.W:
-                    if(buttonFlag == 6)
+                    if (buttonFlag == 6)
                     {
                         if (randomX > 0)
                         {
@@ -229,7 +224,7 @@ namespace Practice_4._4
                         {
                             randomX--;
                         }
-                        
+
                     }
                     break;
                 case Keys.A:

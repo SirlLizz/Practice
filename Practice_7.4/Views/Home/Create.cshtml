@@ -1,0 +1,41 @@
+﻿@using Practice_7._4.Models;
+@model Musician;
+@{
+ Layout = null;
+}
+<div class="edit-block" style="background-color: chocolate; text-align: center;" >
+    <h4 style = "text-align: center;">
+        Музыкант
+    </h4>   
+    @using (Html.BeginForm("Create", "Home" ))
+    {
+        @if(!Model.Id.Equals(Guid.Empty))
+        {
+            <div class="dataBox">
+                <label>Id</label><br />
+                @Html.TextBoxFor(m => m.Id, new { @class = "text-box" })
+            </div>
+        }
+        <div class="dataBox">
+            <label>ФИО</label><br />
+            @Html.TextBoxFor(m => m.Name, new { @class = "text-box" })
+        </div>
+        <div class="dataBox">
+            <label>Страна</label><br />
+            @Html.DropDownListFor(m => m.Country ,new SelectList(new string[] { "США", "Австралия", "Россия", "Китай", "Австрия", "Англия"}), "")
+        </div>
+        <div class="dataBox">
+             <label>Год рождения</label><br />
+             @Html.TextBoxFor(m => m.Year, "2022", new { type = "number", @class ="text-box" })
+         </div>
+         <div class="dataBox">
+            <label>Самое известное произведение</label><br />
+            @Html.TextBoxFor(m => m.MostFamousWork, new { @class = "text-box" })
+        </div>
+
+        <div class="dataBox">
+            <input type="submit" value="Сохранить" />
+        </div>
+     }
+    <a asp-action="Index">Назад</a>
+</div>

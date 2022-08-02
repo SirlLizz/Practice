@@ -24,7 +24,7 @@ namespace Practice_7._2.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            Animal animal = new() { Id = Guid.Empty};
+            Animal animal = new() { Id = Guid.Empty };
             return View(animal);
         }
 

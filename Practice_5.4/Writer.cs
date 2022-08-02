@@ -22,7 +22,7 @@ namespace Practice_5._4
         [Browsable(true)]
         [Description("Название страны, в которой родился писатель")]
         [DisplayName("Страна")]
-        public string Country { get; set; } = String.Empty;
+        public string Country { get; set; } = string.Empty;
 
         [Browsable(true)]
         [Description("Количество произведений, написанных писателем")]
@@ -32,7 +32,7 @@ namespace Practice_5._4
         [Browsable(true)]
         [Description("Самое известное произведение")]
         [DisplayName("Самое известное произведение")]
-        public String MostFamousBook { get; set; } = string.Empty;
+        public string MostFamousBook { get; set; } = string.Empty;
 
         [XmlIgnore]
         [DisplayName("Фотография")]
